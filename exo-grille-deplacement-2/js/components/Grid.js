@@ -60,6 +60,7 @@ class Grid {
         for(let i = 0; i < 4; i++){
             
             let posPlayer = player.eltPos.split('-')
+            
             let cellsDirection = new Array()
             
             for(let j = 1; j <= 3; j++){
@@ -67,28 +68,28 @@ class Grid {
                 switch(parseInt([i])){
                     // UP
                     case 0 : 
-                    cellsDirection[0] = document.getElementById(posPlayer[0] + "-" + (parseInt(posPlayer[1]) - j))
+                    cellsDirection[0] = document.getElementById((this.currentPlayer.pos.x) + "-" + (this.currentPlayer.pos.y - j))
                     // On stocke les positions up
                     player.moving.up.push(cellsDirection[0])
                     this.checkAccessibleCellsAreOk(cellsDirection, i)
                     break
                     // DOWN
                     case 1 : 
-                    cellsDirection[1] = document.getElementById(posPlayer[0] + "-" + (parseInt(posPlayer[1]) + j))
+                    cellsDirection[1] = document.getElementById((this.currentPlayer.pos.x) + "-" + (this.currentPlayer.pos.y + j))
                     // On stocke les positions down
                     player.moving.down.push(cellsDirection[1])
                     this.checkAccessibleCellsAreOk(cellsDirection, i)
                     break
                     // RIGHT
                     case 2 :
-                    cellsDirection[2] = document.getElementById((parseInt(posPlayer[0]) + j) + "-" + posPlayer[1])
+                    cellsDirection[2] = document.getElementById((this.currentPlayer.pos.x + j) + "-" + (this.currentPlayer.pos.y))
                     // On stocke les positions right
                     player.moving.right.push(cellsDirection[2])
                     this.checkAccessibleCellsAreOk(cellsDirection, i)
                     break
                     // LEFT
                     case 3 : 
-                    cellsDirection[3] = document.getElementById((parseInt(posPlayer[0]) - j) + "-" + posPlayer[1])
+                    cellsDirection[3] = document.getElementById((this.currentPlayer.pos.x - j) + "-" + (this.currentPlayer.pos.y))
                     // On stocke les positions left
                     player.moving.left.push(cellsDirection[3])
                     this.checkAccessibleCellsAreOk(cellsDirection, i)
@@ -121,6 +122,7 @@ class Grid {
 
         // Je récupère la position du joueur au click
         let pos = e.target.id.split('-')
+        this.currentPlayer.playerPosId.classList.remove(this.currentPlayer.classPlayer)
         this.currentPlayer.pos.x = parseInt(pos[0]), this.currentPlayer.pos.y = parseInt(pos[1]) 
 
         // Savoir dans quelle direction le joueur se déplace
@@ -128,16 +130,16 @@ class Grid {
 
         // Je déclare une nouvelle position
         //let playerNewPosId = document.getElementById(this.currentPlayer.eltPos[0] + '-' + this.currentPlayer.eltPos[1])
-        this.currentPlayer.playerPosId.classList.remove(this.currentPlayer.classPlayer)
-        this.currentPlayer.playerPosId = document.getElementById(this.currentPlayer.eltPos[0] + '-' + this.currentPlayer.eltPos[1])
+        
+        this.currentPlayer.playerPosId = document.getElementById(this.currentPlayer.pos.x + '-' + this.currentPlayer.pos.y)
 
         // Changement de position
         //this.currentPlayer.playerPosId = playerNewPosId
         this.currentPlayer.playerPosId.classList.add(this.currentPlayer.classPlayer)
 
         // Actualisation x et y
-        this.currentPlayer.pos.x = parseInt(this.currentPlayer.eltPos[0])
-        this.currentPlayer.pos.y = parseInt(this.currentPlayer.eltPos[1])
+        //this.currentPlayer.pos.x = parseInt(this.currentPlayer.eltPos[0])
+        //this.currentPlayer.pos.y = parseInt(this.currentPlayer.eltPos[1])
 
         this.deleteAccessibleCells(this.currentPlayer, this.movementManagement)
         
