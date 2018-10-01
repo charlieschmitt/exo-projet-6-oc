@@ -11,14 +11,12 @@ class Player {
         this.playerPosId = 0
         this.oldPos = {x : 0, y : 0}
         this.randomCoordinates(8)
-        this.eltPos = this.pos.x + '-' + this.pos.y
         this.moving = {up : new Array(), down : new Array(), right : new Array(), left : new Array()}
     }
     
     // Coordonnées aléatoires
     randomCoordinates(max) {
         this.pos.x = Math.floor((Math.random() * max) + 1), this.pos.y = Math.floor((Math.random() * max) + 1)
-        this.eltPos = this.pos.x + '-' + this.pos.y
     }
     
     // Placement des joueurs dans la grille
@@ -30,26 +28,17 @@ class Player {
     }
 
     // Gestion des déplacements, de 1 à 3 cases
-    movementManagement(e) {
-
+    movementManagement(currentPlayer, e) {
         // Je récupère la position du joueur au click
-        this.eltPos = e.currentTarget.id
-
-        // Savoir dans quelle direction le joueur se déplace
-        let posWithoutSeparator = this.eltPos.split("-")
-
-        // Je déclare une nouvelle position
-        let playerNewPosId = document.getElementById(posWithoutSeparator[0] + '-' + posWithoutSeparator[1])
-        this.playerPosId.classList.remove(this.classPlayer)
-
-        // Changement de position
-        this.playerPosId = playerNewPosId
-        this.playerPosId.classList.add(this.classPlayer)
-
-        // Actualisation x et y
-        this.pos.x = parseInt(posWithoutSeparator[0])
-        this.pos.y = parseInt(posWithoutSeparator[1])
-        
+        let pos = e.target.id.split('-')
+        // Suppression de la class du joueur
+        currentPlayer.playerPosId.classList.remove(currentPlayer.classPlayer)
+        // Actualisation position x et y du joueur
+        currentPlayer.pos.x = parseInt(pos[0]), currentPlayer.pos.y = parseInt(pos[1]) 
+        // Actualisation position id x et y du joueur
+        currentPlayer.playerPosId = document.getElementById(currentPlayer.pos.x + '-' + currentPlayer.pos.y)
+        // Ajout de la class à la nouvelle position
+        currentPlayer.playerPosId.classList.add(currentPlayer.classPlayer)
     }
     
 }

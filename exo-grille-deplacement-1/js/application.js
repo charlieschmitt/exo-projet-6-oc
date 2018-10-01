@@ -23,13 +23,7 @@ function application() {
     
     // Initialisation du combat
     const FightGameMA = new FightGame(GridMA)
-
-    /******************* ¨Première méthode *******************/
     // Tour par tour - Déplacement des joueurs sur les cases accessibles
-    FightGameMA.addAccessibleCells(GridMA)
-
-    /******************* Deuxième méthode *******************/
-    // Tour par tour - Déplacement des joueurs sur les cases accessibles
-    //FightGameMA.turnByTurn(DonaldTrump, Extraterrestrial)
+    FightGameMA.addAccessibleCells()
     
 };

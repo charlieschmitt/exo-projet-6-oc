@@ -53,11 +53,10 @@ class Grid {
     }
     
     // Détermination des cases accessibles pour un joueur
-    placeAccessibleCells(player) {
+    placeAccessibleCells(currentPlayer) {
         
         for(let i = 0; i < 4; i++){
             
-            let posPlayer = player.eltPos.split('-')
             let cellsDirection = new Array()
             
             for(let j = 1; j <= 3; j++){
@@ -65,30 +64,30 @@ class Grid {
                 switch(parseInt([i])){
                     // UP
                     case 0 : 
-                    cellsDirection[0] = document.getElementById(posPlayer[0] + "-" + (parseInt(posPlayer[1]) - j))
+                    cellsDirection[0] = document.getElementById((currentPlayer.pos.x) + "-" + (currentPlayer.pos.y - j))
                     // On stocke les positions up
-                    player.moving.up.push(cellsDirection[0])
+                    currentPlayer.moving.up.push(cellsDirection[0])
                     this.checkAccessibleCellsAreOk(cellsDirection, i)
                     break
                     // DOWN
                     case 1 : 
-                    cellsDirection[1] = document.getElementById(posPlayer[0] + "-" + (parseInt(posPlayer[1]) + j))
+                    cellsDirection[1] = document.getElementById((currentPlayer.pos.x) + "-" + (currentPlayer.pos.y + j))
                     // On stocke les positions down
-                    player.moving.down.push(cellsDirection[1])
+                    currentPlayer.moving.down.push(cellsDirection[1])
                     this.checkAccessibleCellsAreOk(cellsDirection, i)
                     break
                     // RIGHT
                     case 2 :
-                    cellsDirection[2] = document.getElementById((parseInt(posPlayer[0]) + j) + "-" + posPlayer[1])
+                    cellsDirection[2] = document.getElementById((currentPlayer.pos.x + j) + "-" + (currentPlayer.pos.y))
                     // On stocke les positions right
-                    player.moving.right.push(cellsDirection[2])
+                    currentPlayer.moving.right.push(cellsDirection[2])
                     this.checkAccessibleCellsAreOk(cellsDirection, i)
                     break
                     // LEFT
                     case 3 : 
-                    cellsDirection[3] = document.getElementById((parseInt(posPlayer[0]) - j) + "-" + posPlayer[1])
+                    cellsDirection[3] = document.getElementById((currentPlayer.pos.x - j) + "-" + (currentPlayer.pos.y))
                     // On stocke les positions left
-                    player.moving.left.push(cellsDirection[3])
+                    currentPlayer.moving.left.push(cellsDirection[3])
                     this.checkAccessibleCellsAreOk(cellsDirection, i)
                     break
                 }
@@ -109,24 +108,17 @@ class Grid {
     }
     
     // Suppresion des cellules
-    deleteAccessibleCells(player, turnBasedGame) {
-    //deleteAccessibleCells(player, game1, game2) {
-        
-        /******************* ¨Première méthode *******************/
-        this.accessibleCell.forEach(cell => cell.removeEventListener('click', turnBasedGame, true))
-        
-        /******************* Deuxième méthode *******************/
-        //this.accessibleCell.forEach(cell => cell.removeEventListener('click', game1, true))
-        //this.accessibleCell.forEach(cell => cell.removeEventListener('click', game2, true))
+    deleteAccessibleCells(currentPlayer, turnBasedGame) {
 
-        // Suppression de la class accessible et de l'évènement
+        // Suppression des events et de la class accessible
+        this.accessibleCell.forEach(cell => cell.removeEventListener('click', turnBasedGame, true))
         this.accessibleCell.forEach(cell => cell.classList.remove('accessible'))
         
         // Suppression des cellules accessibles dans le tab
         this.accessibleCell.splice(0, this.accessibleCell.length)
         // Suppresion des positions de déplacement dans les tabs
-        for(let prop in player.moving){
-            player.moving[prop].splice(0, player.moving[prop].length)
+        for(let prop in currentPlayer.moving){
+            currentPlayer.moving[prop].splice(0, currentPlayer.moving[prop].length)
         }
         
     }
