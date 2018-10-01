@@ -1,0 +1,43 @@
+﻿/* Jeu 2D */
+#container{
+    height: 100vh;
+    display: grid;
+    grid-template-rows: repeat(8, 12.5%);
+    margin: 5rem;
+    height: calc(100vh - 10rem);
+}
+
+.row{
+    display: grid;
+    grid-template-columns: repeat(10, 12.5%);
+}
+
+.cell{
+    border: solid 0.10px #913c09;
+}
+
+.accessible{
+    background-color: rgba(241, 108, 27, 1) !important;
+    transition : ease-in 0.5s;
+    cursor: pointer;
+}
+
+.accessible:hover{
+    background-color: rgba(241, 108, 27, 0.5);
+    transition : ease-in 0.5s;
+}
+
+.donald-trump{
+    background-image: url('../pictures/donald-trump.png');
+    background-repeat: no-repeat;
+    background-size: 75%;
+    background-position: center;
+}
+
+.extraterrestrial{
+    background-image: url('../pictures/extraterrestre.png');
+    background-repeat: no-repeat;
+    background-size: 60%;
+    background-position: center;
+}
+
