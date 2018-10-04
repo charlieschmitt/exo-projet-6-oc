@@ -29,7 +29,7 @@ class FightGame {
     turnBasedGame(e){
         // Lancement de la méthode de déplacement
         this.currentPlayer.movementManagement(this.currentPlayer, e)
-        this.grid.deleteAccessibleCells(this.currentPlayer, this.game)
+        this.grid.deleteAccessibleCells(this.currentPlayer, this.turnBasedGame)
         this.setNextPlayer()
         // On renvoie la méthode de tour par tour
         this.addAccessibleCells()
