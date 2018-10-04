@@ -49,17 +49,15 @@ class Grid {
             // Si c'est ok, on place l'élément
             tabPlayers[i].placeElts()
         }
-
-        this.currentPlayer = this.players[0]
         
     }
     
     // Détermination des cases accessibles pour un joueur
     placeAccessibleCells(player) {
+
+        this.currentPlayer = this.players[0]
         
         for(let i = 0; i < 4; i++){
-            
-            let posPlayer = player.eltPos.split('-')
             
             let cellsDirection = new Array()
             
